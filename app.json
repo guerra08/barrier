@@ -1,0 +1,12 @@
+{
+  "name": "barrier",
+  "displayName": "barrier",
+  "expo": {
+    "name": "barrier",
+    "slug": "barrier",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
