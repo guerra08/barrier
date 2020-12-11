@@ -1,26 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import * as LocalAuthentication from 'expo-local-authentication';
 
 export default function HomeScreen() {
 
-    const [hasAuth, setHasAuth] = useState(false);
-
-    const doAuth = async () => {
-        const auth = await LocalAuthentication.authenticateAsync();
-        (auth.success) ? setHasAuth(true) : {};
-    }
-
-    if(!hasAuth)
-        doAuth();
-
     return (
-        hasAuth ? 
-            <View style={styles.container}>
-                <Text>Home</Text>
-            </View>
-        :
-            <></>
+        <View style={styles.container}>
+            <Text>Home</Text>
+        </View>
     )
 }
 

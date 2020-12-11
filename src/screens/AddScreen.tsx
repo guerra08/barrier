@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import { Text, View, StyleSheet } from 'react-native';
+import { BarCodeScanner, BarCodeEventCallbackArguments } from 'expo-barcode-scanner';
+import ButtonComponent from '../components/ButtonComponent';
 
 export default function AddScreen() {
 
     const [hasPermission, setHasPermission] = useState(false);
-    const [scanned, setScanned] = useState(false);
+    const [toScan, setToScan] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -14,25 +15,24 @@ export default function AddScreen() {
         })();
     }, []);
 
-    const handleBarCodeScanned = () => {
-        setScanned(true);
+    const handleBarCodeScanned = (args: BarCodeEventCallbackArguments) => {
+        setToScan(false);
     };
 
-    if (hasPermission === null) {
-        return <Text>Requesting for camera permission</Text>;
+    const handleQRButtonPress = () => {
+        setToScan(!toScan);
     }
-    if (hasPermission === false) {
-        return <Text>No access to camera</Text>;
-    }
+
     return (
         <View style={styles.container}>
-          <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-            style={StyleSheet.absoluteFillObject}
-          />
-          {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+            {toScan && <BarCodeScanner
+                onBarCodeScanned={handleBarCodeScanned}
+                style={StyleSheet.absoluteFillObject}
+            />}
+            {!toScan && <ButtonComponent title="SCAN QR" action={handleQRButtonPress} isActive={true}></ButtonComponent>}
         </View>
-      );
+    );
+
 }
 
 const styles = StyleSheet.create({
