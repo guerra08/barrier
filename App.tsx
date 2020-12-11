@@ -1,18 +1,23 @@
 import React from 'react';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { AuthProvider } from './src/stores/AuthContext';
-import { useColorScheme } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider, DarkTheme, DefaultTheme } from 'react-native-paper';
 
+import { AuthProvider } from './src/stores/AuthContext';
 import Router from './src/Router';
+import { useColorScheme } from 'react-native';
 
 export default function App() {
 
-  const colorScheme = useColorScheme();
+  const systemTheme = useColorScheme();
+  const theme = (systemTheme === 'dark') ? DarkTheme : DefaultTheme;
+
   return (
-    <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AuthProvider>
-        <Router />
-      </AuthProvider>
-    </NavigationContainer>
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }

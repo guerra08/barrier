@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { BarCodeScanner, BarCodeEventCallbackArguments } from 'expo-barcode-scanner';
+import { View, StyleSheet } from 'react-native';
+import { BarCodeScanner, BarCodeEvent } from 'expo-barcode-scanner';
 import ButtonComponent from '../components/ButtonComponent';
+import { useTheme } from 'react-native-paper';
 
 export default function AddScreen() {
 
     const [hasPermission, setHasPermission] = useState(false);
     const [toScan, setToScan] = useState(false);
+
+    const theme = useTheme();
 
     useEffect(() => {
         (async () => {
@@ -15,7 +18,7 @@ export default function AddScreen() {
         })();
     }, []);
 
-    const handleBarCodeScanned = (args: BarCodeEventCallbackArguments) => {
+    const handleBarCodeScanned = (args: BarCodeEvent) => {
         setToScan(false);
     };
 
@@ -24,12 +27,17 @@ export default function AddScreen() {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             {toScan && <BarCodeScanner
                 onBarCodeScanned={handleBarCodeScanned}
                 style={StyleSheet.absoluteFillObject}
             />}
-            {!toScan && <ButtonComponent title="SCAN QR" action={handleQRButtonPress} isActive={true}></ButtonComponent>}
+            {!toScan && <ButtonComponent 
+                title="SCAN QR" 
+                action={handleQRButtonPress} 
+                isActive={true} 
+                mode="contained"
+                icon="plus-circle" />}
         </View>
     );
 
