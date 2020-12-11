@@ -11,19 +11,20 @@ export default function AddScreen() {
 
     const theme = useTheme();
 
-    useEffect(() => {
-        (async () => {
-            const { status } = await BarCodeScanner.requestPermissionsAsync();
-            setHasPermission(status === 'granted');
-        })();
-    }, []);
+    const askForPermissions = async () => {
+        const { status } = await BarCodeScanner.requestPermissionsAsync();
+        setHasPermission(status === 'granted');
+    }
 
     const handleBarCodeScanned = (args: BarCodeEvent) => {
         setToScan(false);
     };
 
     const handleQRButtonPress = () => {
-        setToScan(!toScan);
+        if(!hasPermission)
+            askForPermissions();
+        else
+            setToScan(!toScan);
     }
 
     return (

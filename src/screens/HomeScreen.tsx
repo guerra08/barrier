@@ -9,7 +9,7 @@ export default function HomeScreen() {
     return (
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
             <List.Section>
-                <List.Item 
+                <List.Item
                     title="Microsoft Account" 
                     description="Item description"
                     left={(props) => <List.Icon {...props} icon="microsoft" />} />
