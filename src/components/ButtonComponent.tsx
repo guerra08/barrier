@@ -13,7 +13,13 @@ export default function ButtonComponent(props: IButtonProps){
 
     return(
         <>
-            <Button icon={props.icon} mode={props.mode} onPress={props.action} disabled={!props.isActive}>{props.title}</Button>
+            <Button 
+                icon={props.icon} 
+                mode={props.mode} 
+                onPress={props.action} 
+                disabled={!props.isActive}>
+                    {props.title}
+            </Button>
         </>
     )
 
