@@ -17,7 +17,13 @@ const AppProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCountdown(GetCurrentSeconds());
+            const updated = countdown - 1;
+            if(updated === 0){
+                // UPDATE ALL ENTRIES
+                setCountdown(30);
+            }
+            else
+                setCountdown(30);
         }, 1000);
         return () => clearInterval(interval);
     });
