@@ -13,7 +13,7 @@ const AppContext = createContext<AppContextData>({} as AppContextData);
 
 const AppProvider: React.FC = ({ children }) => {
     const [hasAuth, setHasAuth] = useState(false);
-    const [countdown, setCountdown] = useState(GetCurrentSeconds())
+    const [countdown, setCountdown] = useState(30)
 
     useEffect(() => {
         const interval = setInterval(() => {

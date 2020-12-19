@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BarCodeScanner, BarCodeEvent } from 'expo-barcode-scanner';
+import { useTheme, TextInput, Divider } from 'react-native-paper';
+import * as OTPAuth from 'otpauth';
+
 import ButtonComponent from '../components/ButtonComponent';
-import { useTheme, TextInput, Text } from 'react-native-paper';
-const totp = require('totp-generator');
+import { Generate } from '../utils/OTPUtils';
 
 export default function AddScreen() {
 
@@ -19,6 +21,8 @@ export default function AddScreen() {
     }
 
     const handleBarCodeScanned = (args: BarCodeEvent) => {
+        const token = Generate(args.data);
+        console.log(token);
         setToScan(false);
     };
 
@@ -31,18 +35,29 @@ export default function AddScreen() {
 
     const handleAddButtonPress = () => {
         if(text && text.trim().length > 0){
-            const token = totp(text);
-            console.log(token);
+            console.log('implement');
         }
     }
 
+    const handleCloseButtonPress = () => {
+        setToScan(false);
+    }
+
     if (toScan) {
-        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-            <BarCodeScanner
-                onBarCodeScanned={handleBarCodeScanned}
-                style={StyleSheet.absoluteFillObject}
-            />
-        </View>
+        return(
+            <View style={[styles.scannerContainer, { backgroundColor: theme.colors.background }]}>
+                <BarCodeScanner
+                    onBarCodeScanned={handleBarCodeScanned}
+                    style={StyleSheet.absoluteFillObject}
+                />
+                <ButtonComponent
+                    title="CLOSE"
+                    action={handleCloseButtonPress}
+                    isActive={true}
+                    mode="contained"
+                    icon="close" />
+            </View>
+        )
     }
     return (
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -52,7 +67,7 @@ export default function AddScreen() {
                 isActive={true}
                 mode="contained"
                 icon="camera" />
-            <Text style={[styles.text, { color: theme.colors.primary }]}>OR</Text>
+            <Divider theme={theme}/>
             <TextInput
                 label='Code'
                 value={text}
@@ -79,6 +94,13 @@ const styles = StyleSheet.create({
         height: '100%',
         padding: 16,
         justifyContent: 'center'
+    },
+    scannerContainer: {
+        display: 'flex',
+        flexDirection: 'column-reverse',
+        width: '100%',
+        height: '100%',
+        padding: 16,
     },
     text: {
         alignSelf: 'center',
