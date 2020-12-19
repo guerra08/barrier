@@ -20,10 +20,11 @@ const AppProvider: React.FC = ({ children }) => {
             const updated = countdown - 1;
             if(updated === 0){
                 // UPDATE ALL ENTRIES
+                console.log('update entries');
                 setCountdown(30);
             }
             else
-                setCountdown(30);
+                setCountdown(updated);
         }, 1000);
         return () => clearInterval(interval);
     });
