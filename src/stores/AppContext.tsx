@@ -1,13 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import * as LocalAuthentication from 'expo-local-authentication';
 import { GetSeconds } from '../utils/TimeUtils';
-
-interface AppContextData {
-    hasAuth: boolean;
-    authenticate(): void;
-    unauthenticate(): void;
-    countdown: number;
-}
+import AppContextData from '../interfaces/AppContextData';
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
 

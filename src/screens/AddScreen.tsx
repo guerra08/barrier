@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BarCodeScanner, BarCodeEvent } from 'expo-barcode-scanner';
 import { useTheme, TextInput, Divider } from 'react-native-paper';
-import * as OTPAuth from 'otpauth';
 
 import ButtonComponent from '../components/ButtonComponent';
-import { Generate } from '../utils/OTPUtils';
+import { GenerateTOTP } from '../utils/OTPUtils';
 
 export default function AddScreen() {
 
@@ -21,8 +20,7 @@ export default function AddScreen() {
     }
 
     const handleBarCodeScanned = (args: BarCodeEvent) => {
-        const token = Generate(args.data);
-        console.log(token);
+        const totp = GenerateTOTP(args.data);
         setToScan(false);
     };
 

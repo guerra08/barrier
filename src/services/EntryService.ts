@@ -1,21 +1,21 @@
 import * as SecureStore from 'expo-secure-store';
-import IEntry from '../interfaces/IEntry';
-import { v4 as uuidv4 } from 'uuid';
+import { TOTP } from 'otpauth';
 
 const getAllEntries = async () => {
     const res = await SecureStore.getItemAsync('entries');
-    return res;
+    if(res)
+        return JSON.parse(res);
+    return null;
 }
 
-const addEntry = async (entry: IEntry) => {
-    const toAdd: IEntry = {id: uuidv4(), name: 'name', secret: 'secret'}
+const addEntry = async (entry: TOTP) => {
     const dataString = await SecureStore.getItemAsync('entries');
     if(dataString){
         const data = JSON.parse(dataString);
-        data.unshift(toAdd);
+        data.unshift(entry);
         SecureStore.setItemAsync('entries', JSON.stringify(data));
     }
     else{
-        SecureStore.setItemAsync('entries', JSON.stringify([{id: uuidv4(), name: 'name', secret: 'secret'}]));
+        SecureStore.setItemAsync('entries', JSON.stringify([entry]));
     }
 }

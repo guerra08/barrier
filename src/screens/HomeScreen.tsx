@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { List, useTheme, Text } from 'react-native-paper';
-import { useAppContext } from '../stores/AppContext';
+import { List, useTheme } from 'react-native-paper';
+
+import CountdownDisplayComponent from '../components/CountdownDisplayComponent';
 
 export default function HomeScreen() {
 
     const theme = useTheme();
-    const { countdown } = useAppContext();
 
     return (
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -14,13 +14,14 @@ export default function HomeScreen() {
                 <List.Item
                     title="Microsoft Account" 
                     description="Item description"
-                    left={(props) => <List.Icon {...props} icon="microsoft" />} 
-                    right={() => <Text>{countdown}</Text>} />
+                    left={(props) => <List.Icon {...props} icon="microsoft" />}
+                    right={() => <CountdownDisplayComponent/>}
+                />
                 <List.Item
                     title="Google Account"
                     description="Item description"
-                    left={(props) => <List.Icon {...props} icon="google" />}
-                    right={() => <Text>{countdown}</Text>}
+                    left={(props) => <List.Icon {...props} icon="google" />} 
+                    right={() => <CountdownDisplayComponent/>}
                 />
             </List.Section>
         </View>
