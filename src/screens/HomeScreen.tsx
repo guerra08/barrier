@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { List, useTheme } from 'react-native-paper';
+import { useAppContext } from '../stores/AppContext';
 
 export default function HomeScreen() {
 
     const theme = useTheme();
+    const { countdown } = useAppContext();
+
+    console.log(countdown);
 
     return (
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuth } from '../stores/AuthContext';
+import { useAppContext } from '../stores/AppContext';
 
 export default function AuthScreen() {
-    const { hasAuth, authenticate } = useAuth();
+    const { hasAuth, authenticate } = useAppContext();
 
     if(!hasAuth)
         authenticate();

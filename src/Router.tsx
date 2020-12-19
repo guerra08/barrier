@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { useAuth } from './stores/AuthContext';
+import { useAppContext } from './stores/AppContext';
 import HomeScreen from './screens/HomeScreen';
 import AddScreen from './screens/AddScreen';
 import AuthScreen from './screens/AuthScreen';
@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 export default function Router() {
 
-  const { hasAuth } = useAuth();
+  const { hasAuth } = useAppContext();
 
   return (
     <>
