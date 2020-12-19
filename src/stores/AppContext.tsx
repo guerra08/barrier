@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import * as LocalAuthentication from 'expo-local-authentication';
-import { GetCurrentSeconds } from '../utils/TimeUtils';
+import { GetSeconds } from '../utils/TimeUtils';
 
 interface AppContextData {
     hasAuth: boolean;
@@ -13,19 +13,16 @@ const AppContext = createContext<AppContextData>({} as AppContextData);
 
 const AppProvider: React.FC = ({ children }) => {
     const [hasAuth, setHasAuth] = useState(false);
-    const [countdown, setCountdown] = useState(30)
+    const [countdown, setCountdown] = useState(GetSeconds());
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const updated = countdown - 1;
-            if(updated === 0){
+            const seconds = GetSeconds();
+            if(seconds === 1){
                 // UPDATE ALL ENTRIES
-                console.log('update entries');
-                setCountdown(30);
             }
-            else
-                setCountdown(updated);
-        }, 1000);
+            setCountdown(seconds);
+        }, 500);
         return () => clearInterval(interval);
     });
 

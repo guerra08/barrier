@@ -1,3 +1,3 @@
-export const GetCurrentSeconds = () => {
-    return new Date().getSeconds();
+export const GetSeconds = () => {
+    return 30 - (new Date().getSeconds() % 30);
 }
