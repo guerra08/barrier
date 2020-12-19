@@ -4,7 +4,7 @@ import { BarCodeScanner, BarCodeEvent } from 'expo-barcode-scanner';
 import { useTheme, TextInput, Divider } from 'react-native-paper';
 
 import ButtonComponent from '../components/ButtonComponent';
-import { GenerateTOTP } from '../utils/OTPUtils';
+import { addEntry } from '../services/EntryService';
 
 export default function AddScreen() {
 
@@ -20,7 +20,9 @@ export default function AddScreen() {
     }
 
     const handleBarCodeScanned = (args: BarCodeEvent) => {
-        const totp = GenerateTOTP(args.data);
+        if(args.data.indexOf('otpauth') === 0){
+            addEntry(args.data);
+        }
         setToScan(false);
     };
 

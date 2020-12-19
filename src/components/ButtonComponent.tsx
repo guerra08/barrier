@@ -1,15 +1,8 @@
 import React from 'react';
 import { Button } from 'react-native-paper';
+import ButtonProps from '../interfaces/ButtonProps';
 
-interface IButtonProps{
-    action(): void;
-    title: string;
-    isActive: boolean;
-    mode: "text" | "outlined" | "contained" | undefined;
-    icon: string
-}
-
-export default function ButtonComponent(props: IButtonProps){
+export default function ButtonComponent(props: ButtonProps){
 
     return(
         <>

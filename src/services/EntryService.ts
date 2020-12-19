@@ -1,5 +1,4 @@
 import * as SecureStore from 'expo-secure-store';
-import { TOTP } from 'otpauth';
 
 const getAllEntries = async () => {
     const res = await SecureStore.getItemAsync('entries');
@@ -8,7 +7,7 @@ const getAllEntries = async () => {
     return null;
 }
 
-const addEntry = async (entry: TOTP) => {
+const addEntry = async (entry: string) => {
     const dataString = await SecureStore.getItemAsync('entries');
     if(dataString){
         const data = JSON.parse(dataString);
@@ -19,3 +18,9 @@ const addEntry = async (entry: TOTP) => {
         SecureStore.setItemAsync('entries', JSON.stringify([entry]));
     }
 }
+
+const purgeEntries = async () => {
+    await SecureStore.deleteItemAsync('entries');
+}
+
+export {getAllEntries, addEntry, purgeEntries};
